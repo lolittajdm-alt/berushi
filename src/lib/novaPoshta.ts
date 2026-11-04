@@ -53,11 +53,10 @@ export async function callNovaPoshta<T>(
   calledMethod: string,
   methodProperties: Record<string, unknown>,
 ): Promise<NovaPoshtaResponse<T>> {
-  const response = await fetch(NOVA_POSHTA_API_URL, {
+  const response = await fetch("/api/delivery", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      apiKey,
       modelName,
       calledMethod,
       methodProperties,

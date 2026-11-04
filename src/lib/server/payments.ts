@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
+import { orderStore, ORDER_TTL } from "./storage";
 import { getOrderAmountKopiykas } from "@/lib/monobank";
 
 export type Order = {
@@ -10,6 +11,8 @@ export type Order = {
 };
 const dir = path.join(process.cwd(), ".local-orders");
 export async function saveOrder(order: Order) {
+  const store = orderStore();
+  if (store) { await store.set(`berushi:order:${order.id}`, order, { ex: ORDER_TTL }); return; }
   await mkdir(dir, { recursive: true, mode: 0o700 });
   const file = path.join(dir, `${order.id}.json`);
   const temp = `${file}.${randomUUID()}.tmp`;
@@ -18,17 +21,21 @@ export async function saveOrder(order: Order) {
 }
 export async function readOrder(id: string): Promise<Order | null> {
   if (!/^[a-f0-9-]{36}$/.test(id)) return null;
+  const store = orderStore();
+  if (store) return store.get<Order>(`berushi:order:${id}`);
   try { return JSON.parse(await readFile(path.join(dir, `${id}.json`), "utf8")); }
   catch { return null; }
 }
 export function localOnly(request: Request) {
   const url = new URL(request.url);
-  if (!["localhost", "127.0.0.1", "[::1]"].includes(url.hostname)) throw new Error("Лише локальний тестовий режим.");
-  const origin = request.headers.get("origin");
-  if (origin) {
-    const source = new URL(origin);
-    if (!["localhost", "127.0.0.1", "[::1]"].includes(source.hostname) || source.host !== request.headers.get("host")) throw new Error("Недозволений запит.");
+  const allowed = new Set(["localhost", "127.0.0.1", "[::1]"]);
+  for (const host of [process.env.VERCEL_URL, process.env.VERCEL_PROJECT_PRODUCTION_URL]) {
+    if (host) allowed.add(host);
   }
+  if (process.env.APP_URL) allowed.add(new URL(process.env.APP_URL).hostname);
+  if (!allowed.has(url.hostname)) throw new Error("Недозволений запит.");
+  const origin = request.headers.get("origin");
+  if (origin && new URL(origin).origin !== url.origin) throw new Error("Недозволений запит.");
 }
 export function newOrder(input: Record<string, unknown>): Order {
   const text = (key: string, max = 200) => typeof input[key] === "string" ? (input[key] as string).trim().slice(0, max) : "";

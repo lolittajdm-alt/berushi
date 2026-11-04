@@ -14,6 +14,6 @@ Set API keys only in `.env.local`. Never commit this file.
 
 Includes two product colours, Nova Poshta delivery fields, mono sandbox checkout, payment confirmation, and Telegram notifications to multiple recipients.
 
-Payments currently support local demo/sandbox use only. Orders and notification receipts are stored in `.local-orders/` (excluded from Git). The local notification worker runs in development. Production hosting needs persistent storage, verified payment callbacks, production acquiring credentials, and access controls. GitHub Pages cannot run these server routes.
+Payments support demo/sandbox only. On Vercel, orders and Telegram receipts use managed Redis with a seven-day test retention period. Bank callbacks trigger an independent invoice status check before notifications. Local development can still use `.local-orders/` (excluded from Git). Nova Poshta credentials are server-only. GitHub Pages cannot run these server routes. Live sales still require production acquiring setup.
 
 No API secrets or customer/order records are included in this repository.

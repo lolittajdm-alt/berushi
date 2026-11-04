@@ -12,6 +12,7 @@ export async function POST(request: Request) {
         amount: order.amount, ccy: 980, validity: 3600, displayType: "iframe",
         merchantPaymInfo: { reference: order.id, destination: "Оплата за беруші" },
         redirectUrl: `${new URL(request.url).origin}/payment?order=${order.id}`,
+        ...(process.env.VERCEL ? { webHookUrl: `${new URL(request.url).origin}/api/payments/webhook?order=${order.id}` } : {}),
       });
       if (!invoice.invoiceId || !invoice.pageUrl || new URL(invoice.pageUrl).protocol !== "https:") throw new Error("Не вдалося створити платіж.");
       order.invoiceId = invoice.invoiceId; order.pageUrl = invoice.pageUrl;

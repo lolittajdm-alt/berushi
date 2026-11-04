@@ -35,7 +35,7 @@ import {
   UA_PHONE_PREFIX,
 } from "@/lib/uaPhone";
 
-const NOVA_POSHTA_API_KEY = process.env.NEXT_PUBLIC_NOVA_POSHTA_API_KEY ?? "";
+const NOVA_POSHTA_API_KEY = "server";
 const WAREHOUSE_LIST_LIMIT = 500;
 
 type CityOption = {

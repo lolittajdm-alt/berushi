@@ -3,7 +3,7 @@ import path from "node:path";
 import { mono, readOrder, saveOrder } from "./payments";
 import { notifyPaidOrder } from "./telegram";
 
-export async function syncOrder(id: string) {
+export async function syncOrder(id: string, retryNotification = false) {
   const order = await readOrder(id);
   if (!order) return null;
   if (order.mode === "sandbox" && order.invoiceId && ["created", "processing", "hold"].includes(order.status)) {
@@ -13,7 +13,10 @@ export async function syncOrder(id: string) {
     await saveOrder(order);
   }
   try { await notifyPaidOrder(order); }
-  catch { console.warn("Telegram notification pending; the local worker will retry."); }
+  catch {
+    if (retryNotification) throw new Error("Notification delivery pending");
+    console.warn("Telegram notification pending; retry on next payment check.");
+  }
   return order;
 }
 

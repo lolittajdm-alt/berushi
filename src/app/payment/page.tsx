@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MonobankPaymentEmbed } from "@/components/ui/MonobankPaymentEmbed";
 type Payment = { id: string; mode: "demo" | "sandbox"; status: string; amount: number; color: string; pageUrl?: string; contactRequested: boolean };
@@ -62,7 +63,7 @@ export default function PaymentPage() {
         )}
         {error ? <p role="alert" className="shrink-0 text-xs text-red-600">{error}</p> : null}
         <footer className="flex shrink-0 items-center justify-between gap-2 text-xs sm:text-sm">
-          <a href="/" className="rounded-full px-2 py-2 underline">До магазину</a>
+          <Link href="/" className="rounded-full px-2 py-2 underline">До магазину</Link>
           <button disabled={busy} onClick={() => void check()} className="rounded-full border border-border px-3 py-2 disabled:opacity-50">{busy ? "Перевіряємо…" : "Перевірити оплату"}</button>
         </footer>
       </section>
@@ -74,7 +75,7 @@ export default function PaymentPage() {
           <p>{payment?.contactRequested ? "Ваше побажання «Зв’язатися зі мною» збережено в замовленні." : "Замовлення збережено."}</p>
         </div>
         <button type="button" autoFocus onClick={() => window.location.replace("/")} className="mt-6 w-full rounded-full bg-ink px-5 py-3 font-semibold text-surface">Зрозуміло</button>
-        <a href="/" className="mt-4 block text-center text-sm underline">Повернутися до магазину</a>
+        <Link href="/" className="mt-4 block text-center text-sm underline">Повернутися до магазину</Link>
       </dialog>
     </main>
   );
