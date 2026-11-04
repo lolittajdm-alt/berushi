@@ -117,7 +117,7 @@ export function Hero() {
       </div>
 
       <div className="section-container mt-8 sm:mt-12">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:gap-6">
+        <div className="grid grid-cols-3 gap-1 sm:gap-4 lg:gap-6">
           {portfolioItems.map((item, i) => (
             <Reveal key={item.id} delay={i * 0.08}>
               <TiltCard className="masonry-item h-full">
@@ -133,11 +133,11 @@ export function Hero() {
                     alt={item.title}
                     width={1440}
                     height={1920}
-                    className="hero-product-image aspect-[3/4] w-full object-contain p-4 lg:aspect-[1124/1613]"
+                    className="hero-product-image aspect-[3/4] w-full object-contain p-0 sm:p-4 lg:aspect-[1124/1613]"
                   />
                   {item.unavailable ? (
-                    <div className="hero-stock-label absolute bottom-4 left-3 right-3 text-center">
-                      <span className="inline-block rounded-full bg-accent px-4 py-2 text-sm font-semibold text-black">
+                    <div className="hero-stock-label absolute bottom-1 left-0 right-0 sm:bottom-4 sm:left-3 sm:right-3 text-center">
+                      <span className="inline-block rounded-full bg-accent px-1 py-1 text-[8px] sm:px-4 sm:py-2 sm:text-sm font-semibold text-black">
                         Немає в наявності
                       </span>
                     </div>
