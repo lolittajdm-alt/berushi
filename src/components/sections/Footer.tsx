@@ -45,7 +45,7 @@ export function Footer() {
             </p>
           </div>
 
-          <nav className="footer-nav grid grid-cols-2 gap-x-6 gap-y-3 sm:flex sm:flex-wrap sm:gap-6">
+          <nav className="footer-nav flex flex-nowrap items-center justify-between gap-3 sm:justify-start sm:gap-6">
             {links.map((link) => (
               <a
                 key={link.label}
@@ -54,7 +54,7 @@ export function Footer() {
                   e.preventDefault();
                   handleNavClick(link.sectionId);
                 }}
-                className="animated-underline py-1 text-xs font-medium uppercase tracking-wider sm:text-sm"
+                className="animated-underline whitespace-nowrap py-2 text-[10px] font-medium uppercase tracking-wide min-[360px]:text-xs sm:text-sm"
               >
                 {link.label}
               </a>
