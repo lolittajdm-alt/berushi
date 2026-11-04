@@ -867,50 +867,29 @@ export function ContactForm() {
         </AnimatePresence>
 
         <Reveal delay={0.25}>
-          <div className="contact-footer mt-20 grid gap-6 border-t border-border pt-16 sm:grid-cols-[1fr_auto]">
-            <div className="cell-glass rounded-3xl p-6 md:p-8">
+          <div className="contact-footer mt-20 border-t border-border pt-16">
+            <div className="cell-glass w-full rounded-3xl p-6 md:p-8">
               <h3 className="font-display text-2xl font-bold md:text-3xl">Контакти</h3>
               <ul className="mt-6 space-y-3 text-sm md:text-base">
                 <li>
                   <a
-                    href="mailto:hello@breathwood.com"
-                    className="animated-underline hover:text-ink"
-                  >
-                    hello@breathwood.com
-                  </a>
-                </li>
-                <li>
-                  <a href="tel:+380441234567" className="animated-underline hover:text-ink">
-                    +38 (044) 123-45-67
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://instagram.com"
+                    href="https://t.me/chabaniuk_vladyslav"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="animated-underline hover:text-ink"
+                    className="animated-underline inline-flex max-w-full items-center gap-2 hover:text-ink"
                   >
-                    @breathwood.ua
+                    <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="currentColor" aria-hidden="true">
+                      <path d="M21.94 4.67 18.72 19.8c-.24 1.07-.88 1.33-1.78.83l-4.9-3.61-2.36 2.28c-.26.26-.48.48-.98.48l.35-4.98 9.07-8.2c.39-.35-.09-.55-.6-.2L6.31 13.46 1.48 11.95c-1.05-.33-1.07-1.05.22-1.55L20.59 3.12c.88-.33 1.65.2 1.35 1.55Z" />
+                    </svg>
+                    <span className="min-w-0 break-all">@chabaniuk_vladyslav</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#hero" className="animated-underline hover:text-ink">
-                    breathwood.com
+                  <a href="tel:+380632517574" className="animated-underline hover:text-ink">
+                    +38 (063) 251-75-74
                   </a>
                 </li>
               </ul>
-            </div>
-
-            <div className="mx-auto flex aspect-square w-full max-w-[10rem] items-center justify-center rounded-3xl bg-accent p-6 sm:mx-0 sm:w-40 sm:max-w-none">
-              <div className="grid grid-cols-5 gap-1">
-                {Array.from({ length: 25 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className={`aspect-square rounded-sm ${[0, 1, 2, 4, 5, 6, 10, 12, 14, 18, 20, 22, 24].includes(i) ? "bg-ink" : "bg-transparent"}`}
-                  />
-                ))}
-              </div>
             </div>
           </div>
         </Reveal>
